@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   description: "Modern agriculture management for Pesez Farms",
 };
 
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -13,8 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        {children}
+      <body className="antialiased flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-grow">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
