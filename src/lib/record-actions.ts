@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
 
-export async function recordEggProduction(formData: FormData) {
+export async function recordEggProduction(prevState: any, formData: FormData) {
     const session = await auth();
     if (!session?.user?.id) return { error: "Not authenticated" };
 
@@ -14,7 +14,7 @@ export async function recordEggProduction(formData: FormData) {
     if (isNaN(quantity)) return { error: "Invalid quantity" };
 
     try {
-        await prisma.eggsProduction.create({
+        await (prisma as any).eggsProduction.create({
             data: {
                 quantity,
                 date,
@@ -30,7 +30,7 @@ export async function recordEggProduction(formData: FormData) {
     }
 }
 
-export async function recordEggSales(formData: FormData) {
+export async function recordEggSales(prevState: any, formData: FormData) {
     const session = await auth();
     if (!session?.user?.id) return { error: "Not authenticated" };
 
@@ -41,7 +41,7 @@ export async function recordEggSales(formData: FormData) {
     if (isNaN(quantity) || isNaN(amount)) return { error: "Invalid input" };
 
     try {
-        await prisma.eggSales.create({
+        await (prisma as any).eggSales.create({
             data: {
                 quantity,
                 amount,
@@ -58,7 +58,7 @@ export async function recordEggSales(formData: FormData) {
     }
 }
 
-export async function recordFeedUsage(formData: FormData) {
+export async function recordFeedUsage(prevState: any, formData: FormData) {
     const session = await auth();
     if (!session?.user?.id) return { error: "Not authenticated" };
 
@@ -70,7 +70,7 @@ export async function recordFeedUsage(formData: FormData) {
     if (isNaN(quantity) || isNaN(cost) || !type) return { error: "Invalid input" };
 
     try {
-        await prisma.feedStock.create({
+        await (prisma as any).feedStock.create({
             data: {
                 quantity,
                 cost,

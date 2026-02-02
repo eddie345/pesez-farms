@@ -7,15 +7,15 @@ export default async function AnalyticsPage() {
     if (!session) redirect("/login");
 
     const [eggSales, feedStock, eggsProduction] = await Promise.all([
-        prisma.eggSales.findMany({ orderBy: { date: "desc" } }),
+        (prisma as any).eggSales.findMany({ orderBy: { date: "desc" } }),
         prisma.feedStock.findMany({ orderBy: { date: "desc" } }),
         prisma.eggsProduction.findMany({ orderBy: { date: "desc" } }),
     ]);
 
-    const totalRevenue = eggSales.reduce((sum, sale) => sum + sale.amount, 0);
-    const totalFeedCost = feedStock.reduce((sum, feed) => sum + feed.cost, 0);
-    const totalProduction = eggsProduction.reduce((sum, prod) => sum + prod.quantity, 0);
-    const totalSalesQuantity = eggSales.reduce((sum, sale) => sum + sale.quantity, 0);
+    const totalRevenue = eggSales.reduce((sum: number, sale: any) => sum + sale.amount, 0);
+    const totalFeedCost = feedStock.reduce((sum: number, feed: any) => sum + (feed.cost || 0), 0);
+    const totalProduction = eggsProduction.reduce((sum: number, prod: any) => sum + prod.quantity, 0);
+    const totalSalesQuantity = eggSales.reduce((sum: number, sale: any) => sum + sale.quantity, 0);
     const netProfit = totalRevenue - totalFeedCost;
 
     const isProfitable = netProfit >= 0;
@@ -64,7 +64,7 @@ export default async function AnalyticsPage() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-50 text-sm">
-                                {eggSales.slice(0, 10).map((sale) => (
+                                {eggSales.slice(0, 10).map((sale: any) => (
                                     <tr key={sale.id} className="hover:bg-gray-50/50 transition-colors">
                                         <td className="py-4">{new Date(sale.date).toLocaleDateString()}</td>
                                         <td className="py-4 text-right">{sale.quantity}</td>
@@ -88,7 +88,7 @@ export default async function AnalyticsPage() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-50 text-sm">
-                                {feedStock.slice(0, 10).map((feed) => (
+                                {feedStock.slice(0, 10).map((feed: any) => (
                                     <tr key={feed.id} className="hover:bg-gray-50/50 transition-colors">
                                         <td className="py-4">{new Date(feed.date).toLocaleDateString()}</td>
                                         <td className="py-4 capitalize">{feed.type}</td>
