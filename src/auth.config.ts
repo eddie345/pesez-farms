@@ -21,6 +21,9 @@ export const authConfig = {
                 token.id = user.id;
                 token.role = (user as any).role;
             }
+            if (!token.id && token.sub) {
+                token.id = token.sub;
+            }
             return token;
         },
         session({ session, token }) {

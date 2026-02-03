@@ -10,7 +10,7 @@ export function SidebarToggle({ children, session, mainContent }: { children: Re
         <div className="flex h-screen bg-[#f8faf7] w-full relative overflow-hidden">
             {/* Sidebar Desktop/Mobile */}
             <aside className={`
-                fixed inset-y-0 left-0 z-50 w-64 glass m-4 mr-0 flex flex-col transition-transform duration-300 lg:static lg:translate-x-0
+                fixed inset-y-0 left-0 z-50 w-56 glass m-2 mr-0 flex flex-col transition-transform duration-300 lg:static lg:translate-x-0 lg:m-4 lg:mr-0
                 ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0 shadow-lg lg:shadow-none"}
             `}>
                 <div className="p-6 border-b border-gray-100 flex items-center justify-between">
