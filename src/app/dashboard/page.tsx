@@ -28,28 +28,45 @@ export default async function DashboardPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="glass p-6 border-l-4 border-l-[#2d5a27]">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Total Eggs Tracked</p>
-                    <h3 className="text-2xl font-bold text-gray-800">{eggCount._sum.quantity || 0}</h3>
-                    <p className="text-xs text-green-600 mt-2 font-medium">↑ 12% from last week</p>
+                {/* Total Eggs Tracked */}
+                <div className="group glass p-5 border-l-4 border-l-[#2d5a27] hover:bg-white/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-default relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-[#2d5a27]/5 rounded-full -mr-8 -mt-8 transition-transform group-hover:scale-150 duration-500" />
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-1 relative z-10">Total Eggs Tracked</p>
+                    <h3 className="text-2xl font-black text-gray-900 relative z-10">{eggCount._sum.quantity || 0}</h3>
+                    <div className="flex items-center gap-1.5 mt-2 relative z-10">
+                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-green-100 text-green-600 text-[10px]">↑</span>
+                        <p className="text-xs text-green-600 font-bold">12% increase</p>
+                    </div>
                 </div>
 
-                <div className="glass p-6 border-l-4 border-l-[#e6b41d]">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Feed Level (Latest)</p>
-                    <h3 className="text-2xl font-bold text-gray-800">{recentFeed?.quantity ? `${recentFeed.quantity}kg` : 'N/A'}</h3>
-                    <p className="text-xs text-amber-600 mt-2 font-medium">Type: {recentFeed?.type || 'Not logged'}</p>
+                {/* Feed Level */}
+                <div className="group glass p-5 border-l-4 border-l-[#e6b41d] hover:bg-white/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-default relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-[#e6b41d]/5 rounded-full -mr-8 -mt-8 transition-transform group-hover:scale-150 duration-500" />
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-1 relative z-10">Feed Level (Latest)</p>
+                    <h3 className="text-2xl font-black text-gray-900 relative z-10">{recentFeed?.quantity ? `${recentFeed.quantity}kg` : '0 kg'}</h3>
+                    <div className="flex items-center gap-1.5 mt-2 relative z-10">
+                        <span className="text-[10px] font-bold text-amber-600 px-2 py-0.5 bg-amber-50 rounded-full border border-amber-100">
+                            {recentFeed?.type || 'Not logged'}
+                        </span>
+                    </div>
                 </div>
 
-                <div className="glass p-6 border-l-4 border-l-red-500">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Total Mortality</p>
-                    <h3 className="text-2xl font-bold text-gray-800">{mortalityCount._sum.count || 0}</h3>
-                    <p className="text-xs text-red-600 mt-2 font-medium">Attention required</p>
+                {/* Total Mortality */}
+                <div className="group glass p-5 border-l-4 border-l-red-500 hover:bg-white/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-default relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-red-500/5 rounded-full -mr-8 -mt-8 transition-transform group-hover:scale-150 duration-500" />
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-1 relative z-10">Total Mortality</p>
+                    <h3 className="text-2xl font-black text-gray-900 relative z-10">{mortalityCount._sum.count || 0}</h3>
+                    <div className="flex items-center gap-1.5 mt-2 relative z-10">
+                        <p className="text-xs text-red-600 font-bold animate-pulse">● System health check</p>
+                    </div>
                 </div>
 
-                <div className="glass p-6 border-l-4 border-l-[#8b4513]">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Active Workers</p>
-                    <h3 className="text-2xl font-bold text-gray-800">4</h3>
-                    <p className="text-xs text-gray-400 mt-2">1 Manager on duty</p>
+                {/* Active Workers */}
+                <div className="group glass p-5 border-l-4 border-l-[#8b4513] hover:bg-white/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-default relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-[#8b4513]/5 rounded-full -mr-8 -mt-8 transition-transform group-hover:scale-150 duration-500" />
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-1 relative z-10">Active Workers</p>
+                    <h3 className="text-2xl font-black text-gray-900 relative z-10">4</h3>
+                    <p className="text-xs text-gray-400 mt-2 font-medium relative z-10">1 Manager on duty</p>
                 </div>
             </div>
 
