@@ -27,29 +27,43 @@ export default async function DashboardPage() {
                 <button className="btn-primary">Generate Report</button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="glass p-6 border-l-4 border-l-[#2d5a27]">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Total Eggs Tracked</p>
-                    <h3 className="text-2xl font-bold text-gray-800">{eggCount._sum.quantity || 0}</h3>
-                    <p className="text-xs text-green-600 mt-2 font-medium">↑ 12% from last week</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl">
+                {/* Total Eggs Tracked */}
+                <div className="bg-gradient-to-br from-white to-green-50/50 p-5 rounded-2xl border border-green-100 shadow-sm border-l-4 border-l-[#2d5a27] transition-all hover:shadow-md cursor-default">
+                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Total Eggs Tracked</p>
+                    <h3 className="text-2xl font-black text-[#2d5a27]">{eggCount._sum.quantity || 0}</h3>
+                    <p className="text-[10px] text-green-700 mt-2 font-bold flex items-center gap-1">
+                        <span className="bg-green-100 px-1.5 py-0.5 rounded">↑ 12%</span>
+                        <span className="opacity-60">from last week</span>
+                    </p>
                 </div>
 
-                <div className="glass p-6 border-l-4 border-l-[#e6b41d]">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Feed Level (Latest)</p>
-                    <h3 className="text-2xl font-bold text-gray-800">{recentFeed?.quantity ? `${recentFeed.quantity}kg` : 'N/A'}</h3>
-                    <p className="text-xs text-amber-600 mt-2 font-medium">Type: {recentFeed?.type || 'Not logged'}</p>
+                {/* Feed Level */}
+                <div className="bg-gradient-to-br from-white to-amber-50/50 p-5 rounded-2xl border border-amber-100 shadow-sm border-l-4 border-l-[#e6b41d] transition-all hover:shadow-md cursor-default">
+                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Feed Level (Latest)</p>
+                    <h3 className="text-2xl font-black text-amber-700">{recentFeed?.quantity ? `${recentFeed.quantity}kg` : '0 kg'}</h3>
+                    <p className="text-[10px] text-amber-700 mt-2 font-bold">
+                        <span className="bg-amber-100 px-2 py-0.5 rounded uppercase">{recentFeed?.type || 'Not logged'}</span>
+                    </p>
                 </div>
 
-                <div className="glass p-6 border-l-4 border-l-red-500">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Total Mortality</p>
-                    <h3 className="text-2xl font-bold text-gray-800">{mortalityCount._sum.count || 0}</h3>
-                    <p className="text-xs text-red-600 mt-2 font-medium">Attention required</p>
+                {/* Total Mortality */}
+                <div className="bg-gradient-to-br from-white to-red-50/50 p-5 rounded-2xl border border-red-100 shadow-sm border-l-4 border-l-red-500 transition-all hover:shadow-md cursor-default">
+                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Total Mortality</p>
+                    <h3 className="text-2xl font-black text-red-700">{mortalityCount._sum.count || 0}</h3>
+                    <p className="text-[10px] text-red-600 mt-2 font-bold flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                        Attention required
+                    </p>
                 </div>
 
-                <div className="glass p-6 border-l-4 border-l-[#8b4513]">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Active Workers</p>
-                    <h3 className="text-2xl font-bold text-gray-800">4</h3>
-                    <p className="text-xs text-gray-400 mt-2">1 Manager on duty</p>
+                {/* Active Workers */}
+                <div className="bg-gradient-to-br from-white to-orange-50/50 p-5 rounded-2xl border border-orange-100 shadow-sm border-l-4 border-l-[#8b4513] transition-all hover:shadow-md cursor-default">
+                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Active Workers</p>
+                    <h3 className="text-2xl font-black text-orange-950">4</h3>
+                    <p className="text-[10px] text-orange-800 mt-2 font-bold">
+                        <span className="bg-orange-100 px-2 py-0.5 rounded">1 Manager on duty</span>
+                    </p>
                 </div>
             </div>
 
