@@ -23,14 +23,11 @@ export default async function DashboardLayout({
                     <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#2d5a27] text-white font-medium">
                         <span>🏠</span> Overview
                     </Link>
-                    <Link href="/dashboard/eggs" className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-100 transition-all font-medium">
-                        <span>🥚</span> Egg Production
+                    <Link href="/dashboard/record" className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-100 transition-all font-medium">
+                        <span>📝</span> Records Entry
                     </Link>
-                    <Link href="/dashboard/feed" className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-100 transition-all font-medium">
-                        <span>🌾</span> Feed Stock
-                    </Link>
-                    <Link href="/dashboard/mortality" className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-100 transition-all font-medium">
-                        <span>📉</span> Mortality Records
+                    <Link href="/dashboard/analytics" className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-100 transition-all font-medium">
+                        <span>📊</span> Financial Analytics
                     </Link>
                     {session?.user?.role === "ADMIN" && (
                         <Link href="/dashboard/users" className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-100 transition-all font-medium">

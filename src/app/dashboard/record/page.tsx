@@ -1,4 +1,4 @@
-import { EggProductionForm, EggSalesForm, FeedUsageForm } from "@/components/record-forms";
+import { EggProductionForm, EggSalesForm, FeedUsageForm, MortalityRecordForm } from "@/components/record-forms";
 
 export default function RecordsPage() {
     return (
@@ -22,9 +22,15 @@ export default function RecordsPage() {
                 </div>
 
                 {/* Feed Usage Form */}
-                <div className="glass p-8 space-y-6 lg:col-span-2">
+                <div className="glass p-8 space-y-6">
                     <h3 className="text-2xl font-semibold text-[#2d5a27]">Feed Usage & Purchase</h3>
                     <FeedUsageForm />
+                </div>
+
+                {/* Mortality Form */}
+                <div className="glass p-8 space-y-6">
+                    <h3 className="text-2xl font-semibold text-[#2d5a27]">Mortality Records</h3>
+                    <MortalityRecordForm />
                 </div>
             </div>
         </div>

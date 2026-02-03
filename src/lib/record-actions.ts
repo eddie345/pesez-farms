@@ -87,3 +87,31 @@ export async function recordFeedUsage(prevState: any, formData: FormData) {
         return { error: "Failed to record feed usage" };
     }
 }
+
+export async function recordMortality(prevState: any, formData: FormData) {
+    const session = await auth();
+    if (!session?.user?.id) return { error: "Not authenticated" };
+
+    const count = parseInt(formData.get("count") as string);
+    const cause = formData.get("cause") as string;
+    const date = formData.get("date") ? new Date(formData.get("date") as string) : new Date();
+
+    if (isNaN(count)) return { error: "Invalid count" };
+
+    try {
+        await (prisma as any).mortalityRecords.create({
+            data: {
+                count,
+                cause,
+                date,
+                userId: session.user.id,
+            },
+        });
+        revalidatePath("/dashboard");
+        revalidatePath("/dashboard/analytics");
+        return { success: true };
+    } catch (error) {
+        console.error("Error recording mortality:", error);
+        return { error: "Failed to record mortality" };
+    }
+}
