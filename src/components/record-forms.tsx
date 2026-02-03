@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { recordEggProduction, recordEggSales, recordFeedUsage, recordMortality } from "@/lib/record-actions";
 
 function FormFeedback({ state }: { state: any }) {
@@ -36,16 +36,51 @@ export function EggProductionForm() {
 
 export function EggSalesForm() {
     const [state, formAction, isPending] = useActionState(recordEggSales, null);
+    const [quantity, setQuantity] = useState<number>(0);
+    const [pricePerCrate, setPricePerCrate] = useState<number>(50);
+
+    const totalAmount = (quantity * pricePerCrate).toFixed(2);
+
     return (
         <form action={formAction} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Quantity (Crates/Pieces)</label>
-                    <input name="quantity" type="number" required className="w-full px-4 py-2.5 rounded-xl border border-gray-200" placeholder="50" />
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Quantity (Crates)</label>
+                    <input
+                        name="quantity"
+                        type="number"
+                        required
+                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200"
+                        placeholder="e.g. 10"
+                        onChange={(e) => setQuantity(Number(e.target.value))}
+                    />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Amount (GHC)</label>
-                    <input name="amount" type="number" step="0.01" required className="w-full px-4 py-2.5 rounded-xl border border-gray-200" placeholder="1200.00" />
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Price per Crate (GHC)</label>
+                    <select
+                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200"
+                        value={pricePerCrate}
+                        onChange={(e) => setPricePerCrate(Number(e.target.value))}
+                    >
+                        <option value={50}>50 GHC</option>
+                        <option value={55}>55 GHC</option>
+                        <option value={60}>60 GHC</option>
+                    </select>
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Total Amount (GHC)</label>
+                    <div className="relative">
+                        <input
+                            name="amount"
+                            type="number"
+                            step="0.01"
+                            required
+                            readOnly
+                            value={totalAmount}
+                            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 font-bold text-[#2d5a27]"
+                        />
+                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-gray-400 font-bold uppercase">Auto</span>
+                    </div>
                 </div>
             </div>
             <div>
@@ -53,7 +88,7 @@ export function EggSalesForm() {
                 <input name="date" type="date" className="w-full px-4 py-2.5 rounded-xl border border-gray-200" />
             </div>
             <FormFeedback state={state} />
-            <button type="submit" disabled={isPending} className="w-full bg-[#2d5a27] text-white py-3 rounded-xl font-semibold hover:bg-[#1a3317] transition-all">
+            <button type="submit" disabled={isPending} className="w-full bg-[#2d5a27] text-white py-3 rounded-xl font-semibold hover:bg-[#1a3317] transition-all shadow-md active:scale-95">
                 {isPending ? "Saving..." : "Record Sales"}
             </button>
         </form>

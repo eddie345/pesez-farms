@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Footer from "./footer";
 
 export function SidebarToggle({ children, session, mainContent }: { children: React.ReactNode, session: any, mainContent: React.ReactNode }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -93,10 +94,11 @@ export function SidebarToggle({ children, session, mainContent }: { children: Re
                     </div>
                 </header>
 
-                <main className="flex-1 overflow-y-auto">
-                    <div className="p-4 md:p-8 max-w-7xl mx-auto min-h-full">
+                <main className="flex-1 overflow-y-auto flex flex-col">
+                    <div className="p-4 md:p-8 max-w-7xl mx-auto w-full flex-grow">
                         {mainContent}
                     </div>
+                    <Footer />
                 </main>
             </div>
         </div>
