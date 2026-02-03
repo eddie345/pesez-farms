@@ -115,3 +115,43 @@ export async function recordMortality(prevState: any, formData: FormData) {
         return { error: "Failed to record mortality" };
     }
 }
+
+export async function getReportData() {
+    const session = await auth();
+    if (!session?.user?.id) return { error: "Not authenticated" };
+
+    try {
+        const [production, sales, feed, mortality] = await Promise.all([
+            (prisma as any).eggsProduction.findMany({
+                where: { userId: session.user.id },
+                orderBy: { date: 'desc' },
+                take: 100
+            }),
+            (prisma as any).eggSales.findMany({
+                where: { userId: session.user.id },
+                orderBy: { date: 'desc' },
+                take: 100
+            }),
+            (prisma as any).feedStock.findMany({
+                where: { userId: session.user.id },
+                orderBy: { date: 'desc' },
+                take: 100
+            }),
+            (prisma as any).mortalityRecords.findMany({
+                where: { userId: session.user.id },
+                orderBy: { date: 'desc' },
+                take: 100
+            })
+        ]);
+
+        return {
+            production,
+            sales,
+            feed,
+            mortality
+        };
+    } catch (error) {
+        console.error("Error fetching report data:", error);
+        return { error: "Failed to fetch report data" };
+    }
+}

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { ReportButton } from "@/components/report-button";
 
 export default async function AnalyticsPage() {
     const session = await auth();
@@ -15,16 +16,18 @@ export default async function AnalyticsPage() {
     const totalRevenue = eggSales.reduce((sum: number, sale: any) => sum + sale.amount, 0);
     const totalFeedCost = feedStock.reduce((sum: number, feed: any) => sum + (feed.cost || 0), 0);
     const totalProduction = eggsProduction.reduce((sum: number, prod: any) => sum + prod.quantity, 0);
-    const totalSalesQuantity = eggSales.reduce((sum: number, sale: any) => sum + sale.quantity, 0);
     const netProfit = totalRevenue - totalFeedCost;
 
     const isProfitable = netProfit >= 0;
 
     return (
         <div className="container mx-auto px-6 py-12">
-            <div className="mb-12">
-                <h1 className="text-4xl font-bold text-[#2d5a27] mb-2">Financial Analytics</h1>
-                <p className="text-gray-500">Overview of your farm's economic performance and production trends.</p>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+                <div>
+                    <h1 className="text-4xl font-bold text-[#2d5a27] mb-2">Financial Analytics</h1>
+                    <p className="text-gray-500">Overview of your farm's economic performance and production trends.</p>
+                </div>
+                <ReportButton />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
